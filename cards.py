@@ -18,6 +18,30 @@ class Card(object):
 	def __radd__(self, other):
 		return self.rank + other
 
+	def __str__(self):
+		s = ''
+		if self.suit == 'S':
+			s = ' of Spades'
+		elif self.suit == 'H':
+			s = ' of Hearts'
+		elif self.suit == 'C':
+			s = ' of Clubs'
+		else:
+			s = ' of Diamonds'
+		r = 0
+		if self.rank == 1:
+			r = 'Ace'
+		elif self.rank == 11:
+			r = 'Jack'
+		elif self.rank == 12:
+			r = 'Queen'
+		elif self.rank == 13:
+			r = 'King'
+		else:
+			r = self.rank
+		return str(r) + s
+
+
 class Deck(object):
 	factor = 1
 	decks = []
@@ -39,8 +63,8 @@ class Deck(object):
 
 	def draw(self):
 		if len(self.decks) == 0:
-			fill()
-			shuffle()
+			self.fill()
+			self.shuffle()
 		return self.decks.pop()
 
 	# def __str__(self):
@@ -57,4 +81,4 @@ if __name__ == '__main__':
 
 	print(sum(c))
 
-
+	print(d.draw())
