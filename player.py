@@ -41,3 +41,12 @@ class Player(object):
 			return True
 		else:
 			return False
+
+
+def getPlayers():
+	lst = []
+	lst.append(Player('Kevin', HumanPlayer))
+	lst.append(Player('Alice', HumanPlayer))
+	lst.append(Player('Josh', Gambit))
+
+	return lst

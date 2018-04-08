@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from cards import Deck
-from player import Player
+from player import Player, getPlayers
 from ai import *
 
 
@@ -110,9 +110,10 @@ class Table(object):
 
 if __name__ == '__main__':
 	t = Table()
-	t.add_player(Player('Kevin', HumanPlayer))
-	t.add_player(Player('Alice', HumanPlayer))
-	t.add_player(Player('Josh', Gambit))
+	AIs = getPlayers()
+	for you in AIs:
+		t.add_player(you)
+		
 	for _ in range(100):
 		t.game()
 
@@ -120,4 +121,3 @@ if __name__ == '__main__':
 	t.players.sort(reverse=True, key=lambda x: x.bank)
 	for you in t.players:
 		print(you.name, you.bank)		
-	
