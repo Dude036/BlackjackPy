@@ -7,7 +7,7 @@ class Player(object):
 	amount = 0
 	name = ''
 	subPlayer = None
-	hand = None
+	__hand = None
 
 	def __init__(self, newName, subPlayer):
 		self.bank = 1000
@@ -15,13 +15,12 @@ class Player(object):
 		self.subPlayer = subPlayer
 
 	def initial_bet(self):
-		self.amount = self.subPlayer.initial_bet(self.hand)
+		self.amount = self.subPlayer.initial_bet(self.__hand)
 		self.bank -= self.amount
 		return self.amount
 
 	def hit(self):
-		return self.subPlayer.hit(self.subPlayer, self.hand)
-
+		return self.subPlayer.hit(self.subPlayer, self.__hand)
 
 	def won_money(self, percent):
 		self.bank += (self.amount * percent) + self.amount
@@ -29,15 +28,15 @@ class Player(object):
 	def get_money(self):
 		return self.bank
 
-	def get_name(self):
-		return self.name
+	def get_hand(self):
+		return self.__hand
 
 	def deal_hand(self, cards):
-		self.hand = cards
+		self.__hand = cards
 
 	def deal_card(self, card):
-		self.hand.append(card)
-		if sum(self.hand) > 21:
+		self.__hand.append(card)
+		if sum(self.__hand) > 21:
 			return True
 		else:
 			return False
