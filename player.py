@@ -22,6 +22,9 @@ class Player(object):
 	def hit(self):
 		return self.subPlayer.hit(self.subPlayer, self.__hand)
 
+	def end_round(self, dealt):
+		self.subPlayer.round_end(self.subPlayer, dealt)
+
 	def won_money(self, percent):
 		self.bank += (self.amount * percent) + self.amount
 
