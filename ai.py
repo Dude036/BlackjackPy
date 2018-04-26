@@ -18,6 +18,75 @@ class HumanPlayer(object):
 		pass
 
 
+class Joshs_Pupil(object):
+	"""This class is for a Human Player."""
+	def __init__(self):
+		pass
+		
+	def initial_bet(self):
+		return 696969
+
+	def hit(self, cards):
+		if sum(cards) > 17:
+			return False
+		else:
+			return True
+
+	def round_end(self, cards):
+		pass
+
+class faggotfish(object):
+	def __init__(self):
+		pass
+		
+	def initial_bet(self):
+		return 25
+
+	def hit(self, cards):
+		if sum(cards) > 17:
+			return False
+		else:
+			return True
+
+	def round_end(self, cards):
+		pass
+
+
+class RobertCalifornia(object):
+	"""This class is for a Human Player."""
+	def __init__(self):
+		pass
+		
+	def initial_bet(self):
+		return 30
+
+	def hit(self, cards):
+		if sum(cards) > 17:
+			return False
+		else:
+			return True
+
+	def round_end(self, cards):
+		pass
+
+class all_in(object):
+	"""This class is for a Human Player."""
+	def __init__(self):
+		pass
+		
+	def initial_bet(self):
+		return 1000000
+
+	def hit(self, cards):
+		if sum(cards) > 17:
+			return False
+		else:
+			return True
+
+	def round_end(self, cards):
+		pass
+
+
 class Gambit(object):
 	counter = 0
 	"""docstring for Gambit"""
@@ -47,3 +116,19 @@ class Gambit(object):
 				self.counter += 1
 			if a.rank >= 10	:
 				self.counter -= 1
+
+
+class Brennen(object):
+	"""This class is for a Human Player."""
+	def __init__(self):
+		self.counter = 0
+
+	def initial_bet(self):
+		return 10
+	def hit(self, cards):
+		if sum(cards) > 15:
+			return False
+		else:
+			return True
+	def round_end(self, cards):
+		pass

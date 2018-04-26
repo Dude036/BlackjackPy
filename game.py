@@ -111,19 +111,20 @@ class Table(object):
 		winners = []
 		dealerScore = sum(self.dealerUp)+self.__dealerDownCard
 		for you in scores:
-			if you[0] == 21 and you[0] >= dealerScore:
-				# Blackjack! Give them their money back
-				if you[2] is None:
-					pass
-				else:
-					you[2].won_money(1.5)
+			if you[2] is None:
+				# Dealer, ignore his payday
+				continue
+			elif you[0] == 21:
+				# Blackjack! Give them their money back and more
+				you[2].won_money(2)
 				winners.append(you)
 			elif you[0] < 21 and you[0] >= dealerScore:
 				# You still won, just less money
-				if you[2] is None:
-					pass
-				else:
-					you[2].won_money(1)
+				you[2].won_money(1.5)
+				winners.append(you)
+			elif dealerScore > 21 and you[0] < 21:
+				# Won
+				you[2].won_money(1.5)
 				winners.append(you)
 			else:
 				losers.append(you)
@@ -141,13 +142,13 @@ class Table(object):
 
 
 if __name__ == '__main__':
-	t = Table(True)
+	t = Table()
 	AIs = getPlayers()
 	for you in AIs:
 		t.add_player(you)
 
 	t.setup_game()
-	for _ in range(5):
+	for _ in range(1000000):
 		t.game()
 
 	print("Winnings:")

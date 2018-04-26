@@ -47,8 +47,12 @@ class Player(object):
 
 def getPlayers():
 	lst = []
-	lst.append(Player('Kevin', HumanPlayer))
-	lst.append(Player('Alice', HumanPlayer))
+	lst.append(Player('Patrick', HumanPlayer))
 	lst.append(Player('Josh', Gambit))
-
+	lst.append(Player('Mike', Gambit))
+	lst.append(Player('Brennen', Brennen))
+	lst.append(Player('Paul', all_in))
+	lst.append(Player('Robert California', RobertCalifornia))
+	lst.append(Player('Faggot Fish', faggotfish))
+	lst.append(Player('Josh 2.0', Joshs_Pupil))
 	return lst
