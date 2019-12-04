@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-class HumanPlayer(object):
+class HumanPlayer:
 	"""This class is for a Human Player."""
 	def __init__(self):
 		pass
@@ -18,7 +18,7 @@ class HumanPlayer(object):
 		pass
 
 
-class Joshs_Pupil(object):
+class Joshs_Pupil:
 	"""This class is for a Human Player."""
 	def __init__(self):
 		pass
@@ -35,7 +35,7 @@ class Joshs_Pupil(object):
 	def round_end(self, cards):
 		pass
 
-class faggotfish(object):
+class faggotfish:
 	def __init__(self):
 		pass
 		
@@ -52,7 +52,7 @@ class faggotfish(object):
 		pass
 
 
-class RobertCalifornia(object):
+class RobertCalifornia:
 	"""This class is for a Human Player."""
 	def __init__(self):
 		pass
@@ -69,7 +69,7 @@ class RobertCalifornia(object):
 	def round_end(self, cards):
 		pass
 
-class all_in(object):
+class all_in:
 	"""This class is for a Human Player."""
 	def __init__(self):
 		pass
@@ -87,7 +87,7 @@ class all_in(object):
 		pass
 
 
-class Gambit(object):
+class Gambit:
 	counter = 0
 	"""docstring for Gambit"""
 	def __init__(self):
@@ -118,7 +118,7 @@ class Gambit(object):
 				self.counter -= 1
 
 
-class Brennen(object):
+class Brennen:
 	"""This class is for a Human Player."""
 	def __init__(self):
 		self.counter = 0

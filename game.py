@@ -3,6 +3,7 @@
 from cards import Deck
 from player import Player, getPlayers
 from ai import *
+import sys
 
 
 class Table(object):
@@ -11,8 +12,8 @@ class Table(object):
 	__dealerDownCard = None
 	deck = Deck()
 	verbose = False
+	washed_up = []
 
-	"""docstring for Table"""
 	def __init__(self, loud=False):
 		print("Welcome to BlackJack")
 		self.verbose = loud
@@ -25,6 +26,13 @@ class Table(object):
 		self.deck = Deck(len(self.players)//2)
 
 	def game(self):
+		# Remove all broke players
+		broke = []
+		for you in self.players:
+			if you.bank <= 0:
+				broke.append(you)
+		for them in broke:
+			self.washed_up.append(self.players.pop(self.players.index(them)))
 		# Deal all cards to players
 		if self.verbose:
 			print("Dealing Cards...")
@@ -67,6 +75,7 @@ class Table(object):
 			bt = you.initial_bet()
 			if self.verbose:
 				print(you.name, "makes an initial bet of $"+str(bt))
+				print("\tRemaining Balance: $", you.bank)
 
 		# While there are people still wanting to play, 
 		while len(in_round) > 0:
@@ -85,7 +94,7 @@ class Table(object):
 					in_round.remove(you)
 
 		# Dealers Turn once everyone has played
-		while sum(self.dealerUp)+self.__dealerDownCard < 16:
+		while sum(self.dealerUp) + self.__dealerDownCard < 15:
 			newCard = self.deck.draw()
 			if self.verbose:
 				print("Dealer draws a card.", newCard)
@@ -116,15 +125,15 @@ class Table(object):
 				continue
 			elif you[0] == 21:
 				# Blackjack! Give them their money back and more
-				you[2].won_money(2)
+				you[2].won_money(1.5)
 				winners.append(you)
 			elif you[0] < 21 and you[0] >= dealerScore:
 				# You still won, just less money
-				you[2].won_money(1.5)
+				you[2].won_money(1)
 				winners.append(you)
 			elif dealerScore > 21 and you[0] < 21:
 				# Won
-				you[2].won_money(1.5)
+				you[2].won_money(1)
 				winners.append(you)
 			else:
 				losers.append(you)
@@ -132,9 +141,10 @@ class Table(object):
 		# Print stuff
 		if self.verbose:
 			print("Winners!")
-			print(winners)
+
+			print([you[:2] for you in winners])
 			print("Losers")
-			print(losers)
+			print([you[:2] for you in losers])
 
 		# Remove cards from the Dealer
 		self.dealerUp = []
@@ -142,16 +152,30 @@ class Table(object):
 
 
 if __name__ == '__main__':
+	games_to_run = 100
+	if len(sys.argv) > 1:
+		try:
+			games_to_run = eval(sys.argv[1])
+		except Exception as e:
+			pass
+
+	starting_bank = 0
+
 	t = Table()
 	AIs = getPlayers()
 	for you in AIs:
 		t.add_player(you)
+		starting_bank += you.bank
 
 	t.setup_game()
-	for _ in range(1000000):
+	for _ in range(games_to_run):
 		t.game()
 
 	print("Winnings:")
 	t.players.sort(reverse=True, key=lambda x: x.bank)
+	format_str = '>' + str(max([len(n.name) for n in t.players]) + 1)
+
 	for you in t.players:
-		print(you.name, you.bank - 1000)		
+		print(format(you.name, format_str), '$' + str(you.bank))
+
+	print("Casino Final Net Balance $", sum([1000 - you.bank for you in t.players]) + sum([1000 for i in range(len(t.washed_up))]))

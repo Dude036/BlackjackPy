@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from ai import *
 
-class Player(object):
+class Player:
 	"""docstring for Player"""
 	bank = 0
 	amount = 0
@@ -15,7 +15,13 @@ class Player(object):
 		self.subPlayer = subPlayer
 
 	def initial_bet(self):
-		self.amount = self.subPlayer.initial_bet(self.__hand)
+		total = self.subPlayer.initial_bet(self.__hand)
+		if total < self.bank:
+			self.amount = total
+		elif self.bank > 5:
+			self.amount = 10 * len(str(self.bank))
+		else:
+			self.amount = 5
 		self.bank -= self.amount
 		return self.amount
 
