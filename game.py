@@ -178,4 +178,9 @@ if __name__ == '__main__':
 	for you in t.players:
 		print(format(you.name, format_str), '$' + str(you.bank))
 
-	print("Casino Final Net Balance $", sum([1000 - you.bank for you in t.players]) + sum([1000 for i in range(len(t.washed_up))]))
+	net_bank = sum([1000 - you.bank for you in t.players]) + sum([1000 for i in range(len(t.washed_up))])
+	print("Casino Final Net Balance $", net_bank)
+	if net_bank > 0:
+		print("Just goes to show, Gambling often leads to failure")
+	else:
+		print("Some of you got very lucky")
