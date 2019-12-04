@@ -9,14 +9,33 @@ class Card(object):
 		self.rank = newRank
 		self.suit = newSuit
 
-	def __str__(self):
-		return str(self.rank) + ' ' + self.suit
-
 	def __add__(self, other):
 		return self.rank + other.rank
 
 	def __radd__(self, other):
 		return self.rank + other
+
+	def __gt__(self, other):
+		if self.rank == other.rank:
+			order = ['S', 'H', 'C', 'D']
+			return order.index(self.suit) < order.index(other.suit)
+		else:
+			return self.rank > other.rank
+
+	def __lt__(self, other):
+		return not self.__gt__(other)
+
+	def __eq__(self, other):
+		return self.rank == other.rank and self.suit == other.suit
+
+	def __ge__(self, other):
+		return self.__gt__(other) or self.__eq__(other)
+
+	def __le__(self, other):
+		return self.__lt__(other) or self.__eq__(other)
+
+	def __repr__(self):
+		return str(self.rank) + self.suit
 
 	def __str__(self):
 		s = ''
@@ -81,4 +100,15 @@ if __name__ == '__main__':
 
 	print(sum(c))
 
-	print(d.draw())
+	test1 = [Card(i, j) for i in range(1, 14) for j in ['D', 'C', 'H', 'S']]
+	test2 = [Card(i, j) for i in range(1, 14) for j in ['S', 'D', 'C', 'H']]
+
+	random.shuffle(test2)
+	test2.sort()
+	print(test2)
+	print(test1)
+	print(id(test1) == id(test2))
+	print(test1 == test2)
+
+
+
